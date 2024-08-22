@@ -1,26 +1,26 @@
 -- 問1
-mysql> SELECT group_name,MIN(ranking) AS 最上位,MAX(ranking) AS 最下位
-    -> FROM countries
-    -> GROUP BY group_name
+SELECT group_name,MIN(ranking) AS 最上位,MAX(ranking) AS 最下位
+FROM countries
+GROUP BY group_name
 -- 問2
-mysql> SELECT AVG(height) AS 最高身長, AVG(weight) AS 最高体重
-    -> FROM players
-    -> WHERE (position = 'GK');
+SELECT AVG(height) AS 最高身長, AVG(weight) AS 最高体重
+FROM players
+WHERE (position = 'GK');
 -- 問3
-mysql> SELECT c.name,(SELECT AVG(p.height) FROM players p WHERE p.country_id = c.id) AS Ave_height
-    -> FROM countries c
-    -> ORDER BY Ave_height DESC;
+SELECT c.name,(SELECT AVG(p.height) FROM players p WHERE p.country_id = c.id) AS Ave_height
+FROM countries c
+ORDER BY Ave_height DESC;
 -- 問4
-mysql> SELECT (SELECT c.name FROM countries c WHERE c.id = p.country_id) AS country_name ,AVG(p.height) AS Ave_height
-    -> FROM players p
-    -> GROUP BY p.country_id
-    -> ORDER BY Ave_height DESC;
+SELECT (SELECT c.name FROM countries c WHERE c.id = p.country_id) AS country_name ,AVG(p.height) AS Ave_height
+FROM players p
+GROUP BY p.country_id
+ORDER BY Ave_height DESC;
 -- 問5
-mysql> SELECT p.kickoff,c1.name AS my_country,c2.name AS enemy_country
-    -> FROM  pairings p
-    -> JOIN countries c1 ON p.my_country_id = c1.id
-    -> JOIN countries c2 ON p.enemy_country_id = c2.id
-    -> ORDER BY p.kickoff ASC;
+SELECT p.kickoff,c1.name AS my_country,c2.name AS enemy_country
+FROM  pairings p
+JOIN countries c1 ON p.my_country_id = c1.id
+JOIN countries c2 ON p.enemy_country_id = c2.id
+ORDER BY p.kickoff ASC;
 -- 問6
 SELECT p.name,p.position,p.club,(SELECT COUNT(g.id) FROM goals g WHERE p.id = g.player_id) AS ゴール数
 FROM players p
